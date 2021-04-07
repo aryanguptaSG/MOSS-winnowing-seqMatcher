@@ -20,7 +20,7 @@ class seqMatcher():
         blocks = list(SM.get_matching_blocks()) #elements  of blocks[] - (start-file1, start-file2, length)
         blocks = blocks[: -1]
         f1 = open(filename1, "r")
-        copied = ""
+        copied = []
         for i in blocks:
             flag = 0
             for j in tokens1:
@@ -34,7 +34,7 @@ class seqMatcher():
                 #the start and end of matching blocks is linked to the original code to properly mark the plagiarized content
                 f1.seek(start, 0)
                 # print(f1.read(end - start))
-                copied+=f1.read(end - start)
-        return {"ratio":similarity_ratio,"Code":copied}
+                copied.append(f1.read(end - start))
+        return {"ratio":similarity_ratio,"Code":''.join(copied)}
 
 
