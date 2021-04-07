@@ -73,11 +73,9 @@ class winnowing():
         arrLen = len(arr)
         prevMin = 0
         currMin = 0
-        windows = []
         fingerprintList = []
         for i in range(arrLen - winSize):
             win = arr[i: i + winSize]  #forming windows
-            windows.append(win)
             currMin = i + self.minIndex(win)
             if not currMin == prevMin:  #min value of window is stored only if it is not the same as min value of prev window
                 fingerprintList.append(arr[currMin])  #reduces the number of fingerprints while maintaining guarantee
