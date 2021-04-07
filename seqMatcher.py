@@ -23,12 +23,12 @@ class seqMatcher():
         copied = ""
         for i in blocks:
             flag = 0
-            for j in range(len(tokens1)):
-                if tokens1[j][2] == i[0]:  #linking start of matching block to position in cleaned up code
-                    start = tokens1[j][1]  #linking position in cleaned up code to position in original code file
+            for j in tokens1:
+                if j[2] == i[0]:  #linking start of matching block to position in cleaned up code
+                    start = j[1]  #linking position in cleaned up code to position in original code file
                     flag = 1
-                if tokens1[j][2] == (i[0] + i[2] - 1): #linking end to cleaned up code
-                    end = tokens1[j][1]  #linking to original code file
+                if j[2] == (i[0] + i[2] - 1): #linking end to cleaned up code
+                    end = j[1]  #linking to original code file
                     break
             if not flag == 0 and (end - start) > 100:  #printing significant blocks of plagiarized content
                 #the start and end of matching blocks is linked to the original code to properly mark the plagiarized content
