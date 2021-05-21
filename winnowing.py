@@ -75,10 +75,8 @@ class winnowing():
         comman = fp1.intersection(fp2)
         total = len(fp1)+len(fp2)
         plagcount = len(comman)
-        if plagcount:
-            return {"ratio":(plagcount/(total-plagcount))}
-        else:
-            return {"ratio":(0)}
+        return {"ratio":(plagcount/(total-plagcount))}
+        
             
     def plagiarismRate(self):
         total = len(self.fpList1)
@@ -86,10 +84,7 @@ class winnowing():
         for i in self.fpList1:
             if i in self.fpList2:
                 plagcount+=1
-        if plagcount:
-            return {"ratio":(plagcount/total)}
-        else:
-            return{"ratio":(0)}
+        return {"ratio":(plagcount/total)}
 
     #we form windows of hash values and use min-hash to limit the number of fingerprints
     def fingerprints(self,arr, winSize = 4):
