@@ -68,6 +68,29 @@ class winnowing():
                     newCode = newCode + code[value[1] :]
         return {"ratio":(plagCount/len(code)),"Code":newCode}
 
+
+    def jaccardCheck(self):
+        fp1 = set(self.fpList1)
+        fp2 = set(self.fpList2)
+        comman = fp1.intersection(fp2)
+        total = len(fp1)+len(fp2)
+        plagcount = len(comman)
+        if plagcount:
+            return {"ratio":(plagcount/(total-plagcount))}
+        else:
+            return {"ratio":(0)}
+            
+    def plagiarismRate(self):
+        total = len(self.fpList1)
+        plagcount =0
+        for i in self.fpList1:
+            if i in self.fpList2:
+                plagcount+=1
+        if plagcount:
+            return {"ratio":(plagcount/total)}
+        else:
+            return{"ratio":(0)}
+
     #we form windows of hash values and use min-hash to limit the number of fingerprints
     def fingerprints(self,arr, winSize = 4):
         arrLen = len(arr)
