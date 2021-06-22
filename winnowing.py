@@ -1,7 +1,7 @@
-import pygments.token
-import pygments.lexers
+# import pygments.token
+# import pygments.lexers
 import hashlib
-from cleanUP import *
+from cleanUP import tokenize,toText
 
 class winnowing():
     def __init__(self,file1,file2):
@@ -79,11 +79,10 @@ class winnowing():
         
             
     def plagiarismRate(self):
-        total = len(self.fpList1)
-        plagcount =0
-        for i in self.fpList1:
-            if i in self.fpList2:
-                plagcount+=1
+        fp1 = set(self.fpList1)
+        fp2 = set(self.fpList2)
+        total = len(fp1)
+        plagcount = len(fp1.intersection(fp2))
         return {"ratio":(plagcount/total)}
 
     #we form windows of hash values and use min-hash to limit the number of fingerprints
@@ -117,12 +116,7 @@ class winnowing():
         return kgrams
     #function that returns the index at which minimum value of a given list (window) is located
     def minIndex(self,arr):
-        minI = 0
-        minV = arr[0]
-        for i,value in enumerate(arr):
-            if value < minV:
-                minV = value
-                minI = i
+        minI = arr.index(min(arr))
         return minI
 
     #sha-1 encoding is used to generate hash values
