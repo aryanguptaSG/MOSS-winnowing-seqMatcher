@@ -1,9 +1,7 @@
-# import pygments.token
-# import pygments.lexers
 import hashlib
 from cleanUP import tokenize,toText
 
-class winnowing():
+class Winnowing():
     def __init__(self,file1,file2):
         self.file1=file1
         self.file2=file2
@@ -61,7 +59,7 @@ class winnowing():
         for i,value in enumerate(mergedPoints):
             if value[1] > value[0]:
                 plagCount += value[1] - value[0]
-                newCode = newCode + '\x1b[6;30;42m' + code[value[0] : value[1]] + '\x1b[0m'
+                newCode = f"{newCode}\x1b[6;30;42m{code[value[0] : value[1]]}\x1b[0m"
                 if i < len(mergedPoints) - 1:
                     newCode = newCode + code[value[1] : mergedPoints[i+1][0]]
                 else:
@@ -99,9 +97,10 @@ class winnowing():
                 prevMin = currMin  #refer to density of winnowing and guarantee threshold (Stanford paper)
 
         return fingerprintList
+        
     #takes k-gram list as input and returns a list of only hash values
     def hashList(self,arr):
-        return [i[1] for i in arr]
+        return list(zip(*arr))[1]
         
     #function to form k-grams out of the cleaned up text
     def kgrams(self,text, k = 25):
@@ -114,17 +113,15 @@ class winnowing():
             kgrams.append((kgram, hv, i, i + k))  #k-gram, its hash value, starting and ending positions are stored
             #these help in marking the plagiarized content in the original code.
         return kgrams
+
     #function that returns the index at which minimum value of a given list (window) is located
     def minIndex(self,arr):
-        minI = arr.index(min(arr))
-        return minI
+        return arr.index(min(arr))
 
     #sha-1 encoding is used to generate hash values
     def hash(self,text):
         #this function generates hash values
-        hashval = hashlib.sha1(text.encode('utf-8'))
-        hashval = hashval.hexdigest()[-4 :]
-        hashval = int(hashval, 16)  #using last 16 bits of sha-1 digest
-        return hashval
+        return int((hashlib.sha1(text.encode('utf-8'))).hexdigest()[-4:],16)#using last 16 bits of sha-1 digest
+
 
 

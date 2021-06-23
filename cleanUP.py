@@ -37,5 +37,4 @@ def tokenize(filename):
     return result
 
 def toText(arr):
-    cleanText = ''.join(str(x[0]) for x in arr)
-    return cleanText
+    return ''.join(list(zip(*arr))[0])

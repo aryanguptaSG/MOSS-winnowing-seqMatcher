@@ -2,10 +2,12 @@ import winnowing
 
 
 #Driver Code For Winnowing.py
-check1 = winnowing.winnowing("/Users/aryangupta/Desktop/IIT_Bombay/MOSS-winnowing-seqMatcher/tests/test2.py","/Users/aryangupta/Desktop/IIT_Bombay/MOSS-winnowing-seqMatcher/tests/test3.py")
-result=check1.jaccardCheck()
-result1 = check1.plagiarismRate()
+check = winnowing.Winnowing("/Users/aryangupta/Desktop/IIT_Bombay/MOSS-winnowing-seqMatcher/tests/test3.py","/Users/aryangupta/Desktop/IIT_Bombay/MOSS-winnowing-seqMatcher/tests/test3.py")
+result=check.jaccardCheck()
+result1 = check.plagiarismRate()
+# result3 = check.plagiarismCheck()
 print("Approx ratio jaccard of plagiarized content in file 1: ", result['ratio'])
 print("Approx ratio of plagiarized content in file 1: ", result1['ratio'])
-# print(result['Code'])
+# print("plagiarized content in file 1: ", result3['ratio'])
+# print(result3['Code'])
 
