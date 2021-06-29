@@ -11,3 +11,8 @@ print("Approx ratio of plagiarized content in file 1: ", result1['ratio'])
 # print("plagiarized content in file 1: ", result3['ratio'])
 # print(result3['Code'])
 
+
+#  python , c, c++, java, R 
+
+# minimum two files for each language. (empty files as well.)
+

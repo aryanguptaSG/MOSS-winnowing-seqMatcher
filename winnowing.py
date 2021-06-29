@@ -2,7 +2,7 @@ import hashlib
 from cleanUP import tokenize,toText
 
 class Winnowing():
-    def __init__(self,file1,file2):
+    def __init__(self, file1, file2):
         self.file1=file1
         self.file2=file2
         self.token1 = tokenize(file1)  #from cleanUP.py
@@ -15,57 +15,7 @@ class Winnowing():
         self.HL2 = self.hashList(self.kGrams2)
         self.fpList1 = self.fingerprints(self.HL1)
         self.fpList2 = self.fingerprints(self.HL2)
-
-    def plagiarismCheck(self):
-        file1 = self.file1
-        file2 = self.file2
-        f1 = open(file1, "r")
-        start = []   #to store the start values corresponding to matching fingerprints
-        end = []   #to store end values
-        code = f1.read()  #original code
-        newCode = ""   #code with marked plagiarized content
-        points = []
-        for i in self.fpList1:
-            for j in self.fpList2:
-                if i == j:   #fingerprints match
-                    flag = 0
-                    match = self.HL1.index(i)   #index of matching fingerprints in hash list, k-grams list
-                    newStart = self.kGrams1[match][2]   #start position of matched k-gram in cleaned up code
-                    newEnd = self.kGrams1[match][3]   #end position
-                    for k in self.token1:
-                        if k[2] == newStart:   #linking positions in cleaned up code to original code
-                            startx = k[1]
-                            flag = 1
-                        if k[2] == newEnd:
-                            endx = k[1]
-                    if flag == 1:
-                        points.append([startx, endx])
-        points.sort(key = lambda x: x[0])
-        points = points[1:]
-        mergedPoints = []
-        mergedPoints.append(points[0])
-        for i in points:
-            last = mergedPoints[-1]
-            if i[0] >= last[0] and i[0] <= last[1]: #merging overlapping regions
-                if i[1] > last[1]:
-                    mergedPoints = mergedPoints[:-1]
-                    mergedPoints.append([last[0], i[1]])
-                else:
-                    pass
-            else:
-                mergedPoints.append(i)
-        newCode = code[: mergedPoints[0][0]]
-        plagCount = 0
-        for i,value in enumerate(mergedPoints):
-            if value[1] > value[0]:
-                plagCount += value[1] - value[0]
-                newCode = f"{newCode}\x1b[6;30;42m{code[value[0] : value[1]]}\x1b[0m"
-                if i < len(mergedPoints) - 1:
-                    newCode = newCode + code[value[1] : mergedPoints[i+1][0]]
-                else:
-                    newCode = newCode + code[value[1] :]
-        return {"ratio":(plagCount/len(code)),"Code":newCode}
-
+        
 
     def jaccardCheck(self):
         fp1 = set(self.fpList1)
