@@ -35,6 +35,4 @@ def tokenize(text=None,lexer=None):
     return result
 
 def toText(arr):
-    if len(arr)<=0:
-        raise Exception("File Can not be empty!")
     return ''.join(list(zip(*arr))[0])
