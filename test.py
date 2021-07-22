@@ -1,4 +1,3 @@
-from posixpath import abspath
 import unittest
 import winnowing
 from os import path
