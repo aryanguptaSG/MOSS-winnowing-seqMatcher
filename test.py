@@ -23,7 +23,7 @@ class TestWinnowing(unittest.TestCase):
 
     # testing for Java language
     def test4(self):
-        check = winnowing.Winnowing(file1= "./tests/test8.java",file2="./tests/test9.java",lang="r")
+        check = winnowing.Winnowing(file1= "./tests/test8.java",file2="./tests/test9.java",lang="java")
         self.assertEqual(round(check.jaccardCheck(),2),1.00)
         self.assertEqual(round(check.plagiarismRate(),2),1.00)
 
