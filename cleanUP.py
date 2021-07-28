@@ -1,14 +1,12 @@
 import pygments.token
-import pygments.lexers
 
 #Python module pygments is used to tokenize the code files. This module supports most of the popular languages
 #http://pygments.org/languages/
 #Hence this program can be used to clean up codes written in most languages
-def tokenize(filename):
-    file = open(filename, "r")
-    text = file.read()
-    file.close()
-    lexer = pygments.lexers.guess_lexer_for_filename(filename, text)
+def tokenize(text=None,lexer=None):
+    if not text:
+        raise Exception("Text can not be None.")
+
     tokens = lexer.get_tokens(text)
     tokens = list(tokens)
     result = []
@@ -37,5 +35,6 @@ def tokenize(filename):
     return result
 
 def toText(arr):
-    cleanText = ''.join(str(x[0]) for x in arr)
-    return cleanText
+    if not (len(arr)):
+        raise Exception("Code is Invalid")
+    return ''.join(list(zip(*arr))[0])
