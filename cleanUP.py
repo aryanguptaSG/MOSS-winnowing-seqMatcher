@@ -35,4 +35,6 @@ def tokenize(text=None,lexer=None):
     return result
 
 def toText(arr):
+    if not (len(arr)):
+        raise Exception("Code is Invalid")
     return ''.join(list(zip(*arr))[0])

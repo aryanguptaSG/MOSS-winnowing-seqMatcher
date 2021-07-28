@@ -18,6 +18,10 @@ class Winnowing():
         elif code1 and code2:
             if not lang:
                 raise Exception("Language required")
+
+            if len(code1.strip())<=0 or len(code2.strip())<=0:
+                raise Exception("Code can not be empty!")
+
             self.text1=code1
             self.text2=code2
             lexer =pygments.lexers.get_lexer_by_name(lang)
@@ -70,6 +74,8 @@ class Winnowing():
         
     #takes k-gram list as input and returns a list of only hash values
     def hashList(self,arr):
+        if not (len(arr)):
+            raise Exception("Code is Invalid")
         return list(zip(*arr))[1]
         
     #function to form k-grams out of the cleaned up text
